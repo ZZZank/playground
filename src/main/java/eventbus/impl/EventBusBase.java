@@ -5,7 +5,8 @@ import eventbus.EventListenerToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.IntFunction;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * @author ZZZank
@@ -13,7 +14,7 @@ import java.util.function.IntFunction;
 public abstract class EventBusBase<EVENT extends Event, LISTENER> {
     private final Class<EVENT> eventType;
     private final List<EventListenerTokenImpl<EVENT, LISTENER>> tokens;
-    private volatile LISTENER[] built;
+    private volatile LISTENER built;
 
     protected EventBusBase(Class<EVENT> eventType) {
         this.eventType = eventType;
@@ -43,14 +44,12 @@ public abstract class EventBusBase<EVENT extends Event, LISTENER> {
         return changed;
     }
 
-    protected final LISTENER[] getBuilt(IntFunction<LISTENER[]> arrayGenerator) {
+    protected final LISTENER getBuilt(Function<Stream<LISTENER>, LISTENER> listenerCompiler) {
         if (built == null) {
             synchronized (this) {
                 if (built == null) {
                     tokens.sort(null);
-                    built = tokens.stream()
-                        .map(EventListenerTokenImpl::listener)
-                        .toArray(arrayGenerator);
+                    built = listenerCompiler.apply(tokens.stream().map(EventListenerTokenImpl::listener));
                 }
             }
         }
