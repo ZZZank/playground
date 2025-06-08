@@ -1,6 +1,6 @@
 package eventbus;
 
-import eventbus.impl.CallerClassGetter;
+import caller.CallerClassGetter;
 import eventbus.impl.EventBusImpl;
 
 import java.util.function.Predicate;
