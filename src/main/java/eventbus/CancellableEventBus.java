@@ -13,10 +13,6 @@ public interface CancellableEventBus<E> {
         return new EventBusImpl<>(eventType);
     }
 
-    static <E> EventBus<E> createForCaller(Class<E> eventType) {
-        return create((Class<E>) CallerClassGetter.of().get());
-    }
-
     Class<E> eventType();
 
     EventListenerToken<E> addListener(Predicate<E> listener);
