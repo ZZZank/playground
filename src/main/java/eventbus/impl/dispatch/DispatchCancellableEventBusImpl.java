@@ -6,8 +6,8 @@ import eventbus.dispatch.DispatchCancellableEventBus;
 import eventbus.dispatch.EventDispatchKey;
 import eventbus.impl.CancellableEventBusImpl;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -18,10 +18,14 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
     private final EventDispatchKey<E, K> dispatchKey;
     private final Map<K, CancellableEventBus<E>> dispatched;
 
-    public DispatchCancellableEventBusImpl(Class<E> eventType, EventDispatchKey<E, K> dispatchKey) {
+    public DispatchCancellableEventBusImpl(
+        Class<E> eventType,
+        EventDispatchKey<E, K> dispatchKey,
+        Map<K, CancellableEventBus<E>> dispatched
+    ) {
         super(eventType);
-        this.dispatchKey = dispatchKey;
-        this.dispatched = new HashMap<>();
+        this.dispatchKey = Objects.requireNonNull(dispatchKey);
+        this.dispatched = Objects.requireNonNull(dispatched);
     }
 
     @Override

@@ -4,6 +4,7 @@ import eventbus.EventListenerToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -16,7 +17,7 @@ public abstract class EventBusBase<EVENT, LISTENER> {
     private volatile LISTENER built;
 
     protected EventBusBase(Class<EVENT> eventType) {
-        this.eventType = eventType;
+        this.eventType = Objects.requireNonNull(eventType);
         this.tokens = new ArrayList<>();
     }
 

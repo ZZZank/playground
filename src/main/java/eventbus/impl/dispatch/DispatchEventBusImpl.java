@@ -6,8 +6,8 @@ import eventbus.dispatch.EventDispatchKey;
 import eventbus.dispatch.DispatchEventBus;
 import eventbus.impl.EventBusImpl;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -17,10 +17,14 @@ public class DispatchEventBusImpl<E, K> extends EventBusImpl<E> implements Dispa
     private final EventDispatchKey<E, K> dispatchKey;
     private final Map<K, EventBus<E>> dispatched;
 
-    public DispatchEventBusImpl(Class<E> eventType, EventDispatchKey<E, K> dispatchKey) {
+    public DispatchEventBusImpl(
+        Class<E> eventType,
+        EventDispatchKey<E, K> dispatchKey,
+        Map<K, EventBus<E>> dispatchBackend
+    ) {
         super(eventType);
-        this.dispatchKey = dispatchKey;
-        this.dispatched = new HashMap<>();
+        this.dispatchKey = Objects.requireNonNull(dispatchKey);
+        this.dispatched = Objects.requireNonNull(dispatchBackend);
     }
 
     @Override
