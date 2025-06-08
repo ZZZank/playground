@@ -29,6 +29,11 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
     }
 
     @Override
+    public EventDispatchKey<E, K> dispatchKey() {
+        return dispatchKey;
+    }
+
+    @Override
     public EventListenerToken<E> addListener(K key, byte priority, Predicate<E> listener) {
         return this.dispatched
             .computeIfAbsent(key, k -> new CancellableEventBusImpl<>(this.eventType()))
@@ -41,11 +46,14 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
     }
 
     @Override
-    public boolean post(E event) {
+    public boolean post(E event, K key) {
         if (super.post(event)) {
             return true;
         }
-        var bus = this.dispatched.get(this.dispatchKey.toKey(event));
-        return bus != null && bus.post(event);
+        if (key != null) {
+            var bus = this.dispatched.get(key);
+            return bus != null && bus.post(event);
+        }
+        return false;
     }
 }

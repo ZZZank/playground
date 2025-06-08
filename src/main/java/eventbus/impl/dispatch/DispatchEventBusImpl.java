@@ -40,11 +40,18 @@ public class DispatchEventBusImpl<E, K> extends EventBusImpl<E> implements Dispa
     }
 
     @Override
-    public void post(E event) {
+    public EventDispatchKey<E, K> dispatchKey() {
+        return dispatchKey;
+    }
+
+    @Override
+    public void post(E event, K key) {
         super.post(event);
-        var bus = this.dispatched.get(this.dispatchKey.toKey(event));
-        if (bus != null) {
-            bus.post(event);
+        if (key != null) {
+            var bus = this.dispatched.get(key);
+            if (bus != null) {
+                bus.post(event);
+            }
         }
     }
 }
