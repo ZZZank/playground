@@ -29,12 +29,12 @@ public class CancellableEventBusImpl<E extends Event>
             case 1:
                 return arr[0];
             case 2:
-                return arr[0].and(arr[1]);
+                return arr[0].or(arr[1]);
             case 3:
                 var p1 = arr[0];
                 var p2 = arr[1];
                 var p3 = arr[2];
-                return event -> p1.test(event) && p2.test(event) && p3.test(event);
+                return event -> p1.test(event) || p2.test(event) || p3.test(event);
             default:
                 return event -> {
                     for (var predicate : arr) {
