@@ -14,9 +14,9 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-
-    // https://mvnrepository.com/artifact/org.mozilla/rhino
-    implementation("org.mozilla:rhino:1.8.0")
+//
+//    // https://mvnrepository.com/artifact/org.mozilla/rhino
+//    implementation("org.mozilla:rhino:1.8.0")
 
     // https://projectlombok.org/setup/gradle
     compileOnly("org.projectlombok:lombok:1.18.38")
