@@ -2,7 +2,6 @@ package caller;
 
 import lombok.val;
 
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -17,14 +16,7 @@ public final class CallerClassGetter {
         if (GETTER == null) {
             synchronized (CallerClassGetter.class) {
                 if (GETTER == null) {
-                    val handle = findHandle(errorReporter);
-                    GETTER = () -> {
-                        try {
-                            return (Class<?>) handle.invokeExact();
-                        } catch (Throwable e) {
-                            throw new RuntimeException(e);
-                        }
-                    };
+                    GETTER = findGetter(errorReporter);
                 }
             }
         }
@@ -35,7 +27,7 @@ public final class CallerClassGetter {
         return of(null);
     }
 
-    private static MethodHandle findHandle(Consumer<Exception> errorReporter) {
+    private static Supplier<Class<?>> findGetter(Consumer<Exception> errorReporter) {
         if (errorReporter == null) {
             errorReporter = (ignored) -> {};
         }
@@ -46,11 +38,18 @@ public final class CallerClassGetter {
             val class$StackWalker$Option = Class.forName("java.lang.StackWalker$Option");
             val lookup = MethodHandles.lookup();
 
-            val handle = lookup.unreflect(class$StackWalker.getMethod("getCallerClass"));
             val instance$StackWalker = class$StackWalker
                 .getMethod("getInstance", class$StackWalker$Option)
                 .invoke(null, class$StackWalker$Option.getField("RETAIN_CLASS_REFERENCE").get(null));
-            return handle.bindTo(instance$StackWalker);
+            val handle = lookup.unreflect(class$StackWalker.getMethod("getCallerClass"))
+                .bindTo(instance$StackWalker);
+            return () -> {
+                try {
+                    return (Class<?>) handle.invokeExact();
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            };
         } catch (Exception ex) {
             errorReporter.accept(ex);
             // fall through
@@ -61,7 +60,14 @@ public final class CallerClassGetter {
             val class$Reflection = Class.forName("sun.reflect.Reflection");
             val lookup = MethodHandles.lookup();
 
-            return lookup.unreflect(class$Reflection.getMethod("getCallerClass"));
+            val handle = lookup.unreflect(class$Reflection.getMethod("getCallerClass", int.class));
+            return () -> {
+                try {
+                    return (Class<?>) handle.invokeExact(1);
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            };
         } catch (Exception ex) {
             errorReporter.accept(ex);
             // fall through
