@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 /**
  * @author ZZZank
  */
-public interface EventBus<E extends Event> {
+public interface EventBus<E> {
     Class<E> eventType();
 
     EventListenerToken<E> addListener(Consumer<E> listener);

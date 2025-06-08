@@ -1,6 +1,5 @@
 package eventbus.impl;
 
-import eventbus.Event;
 import eventbus.EventListenerToken;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * @author ZZZank
  */
-public abstract class EventBusBase<EVENT extends Event, LISTENER> {
+public abstract class EventBusBase<EVENT, LISTENER> {
     private final Class<EVENT> eventType;
     private final List<EventListenerTokenImpl<EVENT, LISTENER>> tokens;
     private volatile LISTENER built;

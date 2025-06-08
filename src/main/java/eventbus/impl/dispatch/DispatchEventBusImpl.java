@@ -1,6 +1,5 @@
 package eventbus.impl.dispatch;
 
-import eventbus.Event;
 import eventbus.EventBus;
 import eventbus.EventListenerToken;
 import eventbus.dispatch.EventDispatchKey;
@@ -14,7 +13,7 @@ import java.util.function.Consumer;
 /**
  * @author ZZZank
  */
-public class DispatchEventBusImpl<E extends Event, K> extends EventBusImpl<E> implements DispatchEventBus<E, K> {
+public class DispatchEventBusImpl<E, K> extends EventBusImpl<E> implements DispatchEventBus<E, K> {
     private final EventDispatchKey<E, K> dispatchKey;
     private final Map<K, EventBus<E>> dispatched;
 

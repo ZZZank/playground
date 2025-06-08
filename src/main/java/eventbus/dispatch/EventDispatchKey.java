@@ -1,13 +1,11 @@
 package eventbus.dispatch;
 
-import eventbus.Event;
-
 import java.util.Optional;
 
 /**
  * @author ZZZank
  */
-public interface EventDispatchKey<E extends Event, K> {
+public interface EventDispatchKey<E, K> {
     Class<K> keyType();
 
     K toKey(E event);

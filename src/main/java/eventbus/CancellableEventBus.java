@@ -8,12 +8,12 @@ import java.util.function.Predicate;
 /**
  * @author ZZZank
  */
-public interface CancellableEventBus<E extends Event> {
-    static <E extends Event> EventBus<E> create(Class<E> eventType) {
+public interface CancellableEventBus<E> {
+    static <E> EventBus<E> create(Class<E> eventType) {
         return new EventBusImpl<>(eventType);
     }
 
-    static <E extends Event> EventBus<E> createForCaller(Class<E> eventType) {
+    static <E> EventBus<E> createForCaller(Class<E> eventType) {
         return create((Class<E>) CallerClassGetter.of().get());
     }
 

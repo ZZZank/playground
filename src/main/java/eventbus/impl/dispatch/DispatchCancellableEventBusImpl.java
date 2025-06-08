@@ -1,7 +1,6 @@
 package eventbus.impl.dispatch;
 
 import eventbus.CancellableEventBus;
-import eventbus.Event;
 import eventbus.EventListenerToken;
 import eventbus.dispatch.DispatchCancellableEventBus;
 import eventbus.dispatch.EventDispatchKey;
@@ -14,7 +13,7 @@ import java.util.function.Predicate;
 /**
  * @author ZZZank
  */
-public class DispatchCancellableEventBusImpl<E extends Event, K> extends CancellableEventBusImpl<E>
+public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusImpl<E>
     implements DispatchCancellableEventBus<E, K> {
     private final EventDispatchKey<E, K> dispatchKey;
     private final Map<K, CancellableEventBus<E>> dispatched;

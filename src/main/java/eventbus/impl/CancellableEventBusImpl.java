@@ -1,7 +1,6 @@
 package eventbus.impl;
 
 import eventbus.CancellableEventBus;
-import eventbus.Event;
 
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -9,7 +8,7 @@ import java.util.stream.Stream;
 /**
  * @author ZZZank
  */
-public class CancellableEventBusImpl<E extends Event>
+public class CancellableEventBusImpl<E>
     extends EventBusBase<E, Predicate<E>> implements CancellableEventBus<E> {
 
     public CancellableEventBusImpl(Class<E> eventType) {
@@ -21,7 +20,7 @@ public class CancellableEventBusImpl<E extends Event>
         return getBuilt(CancellableEventBusImpl::compile).test(event);
     }
 
-    private static <E extends Event> Predicate<E> compile(Stream<Predicate<E>> predicateStream) {
+    private static <E> Predicate<E> compile(Stream<Predicate<E>> predicateStream) {
         var arr = (Predicate<E>[]) predicateStream.toArray(Predicate[]::new);
         switch (arr.length) {
             case 0:

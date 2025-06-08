@@ -1,6 +1,5 @@
 package eventbus.impl;
 
-import eventbus.Event;
 import eventbus.EventListenerToken;
 
 import java.util.Objects;
@@ -8,7 +7,7 @@ import java.util.Objects;
 /**
  * @author ZZZank
  */
-public record EventListenerTokenImpl<EVENT extends Event, LISTENER>(
+public record EventListenerTokenImpl<EVENT, LISTENER>(
     Class<EVENT> eventType,
     byte priority,
     LISTENER listener

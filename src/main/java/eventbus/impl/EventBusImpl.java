@@ -1,6 +1,5 @@
 package eventbus.impl;
 
-import eventbus.Event;
 import eventbus.EventBus;
 
 import java.util.function.Consumer;
@@ -9,7 +8,7 @@ import java.util.stream.Stream;
 /**
  * @author ZZZank
  */
-public class EventBusImpl<E extends Event> extends EventBusBase<E, Consumer<E>> implements EventBus<E> {
+public class EventBusImpl<E> extends EventBusBase<E, Consumer<E>> implements EventBus<E> {
 
     public EventBusImpl(Class<E> eventType) {
         super(eventType);
@@ -20,7 +19,7 @@ public class EventBusImpl<E extends Event> extends EventBusBase<E, Consumer<E>> 
         getBuilt(EventBusImpl::compile).accept(event);
     }
 
-    private static <E extends Event> Consumer<E> compile(Stream<Consumer<E>> consumerStream) {
+    private static <E> Consumer<E> compile(Stream<Consumer<E>> consumerStream) {
         var arr = (Consumer<E>[]) consumerStream.toArray(Consumer[]::new);
         switch (arr.length) {
             case 0:

@@ -3,7 +3,7 @@ package eventbus;
 /**
  * @author ZZZank
  */
-public interface EventListenerToken<E extends Event> {
+public interface EventListenerToken<E> {
     Class<E> eventType();
 
     byte priority();
