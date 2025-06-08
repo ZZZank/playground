@@ -63,7 +63,11 @@ public final class CallerClassGetter {
             val handle = lookup.unreflect(class$Reflection.getMethod("getCallerClass", int.class));
             return () -> {
                 try {
-                    return (Class<?>) handle.invokeExact(1);
+                    //0: Reflection
+                    //1: CallerClassGetter
+                    //2: this lambda
+                    //3: caller class <-
+                    return (Class<?>) handle.invokeExact(3);
                 } catch (Throwable e) {
                     throw new RuntimeException(e);
                 }
