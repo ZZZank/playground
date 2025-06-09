@@ -45,7 +45,7 @@ public class DispatchEventBusImpl<E, K> extends EventBusImpl<E> implements Dispa
     }
 
     @Override
-    public void post(E event, K key) {
+    public boolean post(E event, K key) {
         super.post(event);
         if (key != null) {
             var bus = this.dispatched.get(key);
@@ -53,5 +53,6 @@ public class DispatchEventBusImpl<E, K> extends EventBusImpl<E> implements Dispa
                 bus.post(event);
             }
         }
+        return false;
     }
 }

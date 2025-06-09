@@ -12,7 +12,9 @@ public interface EventBus<E> {
 
     EventListenerToken<E> addListener(byte priority, Consumer<E> listener);
 
-    void post(E event);
+    /// @return always `false` for non-cancellable event bus
+    /// @see CancellableEventBus#post(Object)
+    boolean post(E event);
 
     boolean unregister(EventListenerToken<E> token);
 }

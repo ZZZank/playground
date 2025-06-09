@@ -16,10 +16,10 @@ public interface DispatchEventBus<E, K> extends EventBus<E> {
 
     EventListenerToken<E> addListener(K key, Consumer<E> listener);
 
-    void post(E event, K key);
+    boolean post(E event, K key);
 
     @Override
-    default void post(E event) {
-        post(event, this.dispatchKey().toKey(event));
+    default boolean post(E event) {
+        return post(event, this.dispatchKey().toKey(event));
     }
 }
