@@ -3,6 +3,7 @@ package eventbus.impl;
 import eventbus.CancellableEventBus;
 import eventbus.EventListenerToken;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -18,17 +19,17 @@ public class CancellableEventBusImpl<E>
     }
 
     @Override
-    public EventListenerToken<E> addListener(byte priority, Consumer<E> listener) {
+    public final EventListenerToken<E> addListener(byte priority, Consumer<E> listener) {
         return addListener(priority, new NeverCancelListener<>(listener));
     }
 
     @Override
-    public EventListenerToken<E> addListener(Consumer<E> listener) {
+    public final EventListenerToken<E> addListener(Consumer<E> listener) {
         return addListener((byte) 0, listener);
     }
 
     @Override
-    public boolean post(E event) {
+    public final boolean post(E event) {
         return getBuilt(CancellableEventBusImpl::compile).test(event);
     }
 
@@ -59,6 +60,9 @@ public class CancellableEventBusImpl<E>
     }
 
     private record NeverCancelListener<E>(Consumer<E> consumer) implements Predicate<E> {
+        private NeverCancelListener(Consumer<E> consumer) {
+            this.consumer = Objects.requireNonNull(consumer);
+        }
 
         @Override
         public boolean test(E e) {

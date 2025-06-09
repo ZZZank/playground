@@ -15,7 +15,7 @@ public class EventBusImpl<E> extends EventBusBase<E, Consumer<E>> implements Eve
     }
 
     @Override
-    public boolean post(E event) {
+    public final boolean post(E event) {
         getBuilt(EventBusImpl::compile).accept(event);
         return false;
     }
