@@ -47,6 +47,8 @@ public class DispatchEventBusImpl<E, K> extends EventBusImpl<E> implements Dispa
     @Override
     public boolean post(E event, K key) {
         super.post(event);
+
+        key = this.dispatchKey.transformInput(key);
         if (key != null) {
             var bus = this.dispatched.get(key);
             if (bus != null) {
