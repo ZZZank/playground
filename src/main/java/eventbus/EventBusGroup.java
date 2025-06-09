@@ -5,6 +5,7 @@ import eventbus.dispatch.DispatchEventBus;
 import eventbus.dispatch.EventDispatchKey;
 import eventbus.impl.EventBusGroupImpl;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,11 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author ZZZank
  */
 public interface EventBusGroup {
-    EventBusGroup DEFAULT = create();
+    EventBusGroup DEFAULT = create("default");
 
-    static EventBusGroup create() {
-        return new EventBusGroupImpl();
+    static EventBusGroup create(String name) {
+        return new EventBusGroupImpl(name, new ConcurrentHashMap<>());
     }
+
+    String name();
+
+    boolean hasBusFor(Class<?> eventType);
 
     <E> EventBus<E> ofBus(Class<E> eventType);
 
@@ -44,4 +49,6 @@ public interface EventBusGroup {
     ) {
         return ofDispatchCancellableBus(eventType, dispatchKey, new ConcurrentHashMap<>());
     }
+
+    Collection<? extends EventBus<?>> viewBuses();
 }

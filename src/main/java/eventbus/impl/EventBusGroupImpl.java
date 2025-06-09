@@ -20,10 +20,21 @@ import java.util.function.Function;
 /**
  * @author ZZZank
  */
-public class EventBusGroupImpl implements EventBusGroup {
-    private final Map<Class<?>, EventBus<?>> busCache = new ConcurrentHashMap<>();
+public record EventBusGroupImpl(
+    String name,
+    Map<Class<?>, EventBus<?>> busCache
+) implements EventBusGroup {
 
-    private <E, T extends EventBus<?>> T ensureBus(Class<T> busType, Class<E> eventType, Function<Class<?>, T> computeFn) {
+    @Override
+    public boolean hasBusFor(Class<?> eventType) {
+        return eventType != null && busCache.containsKey(eventType);
+    }
+
+    private <E, T extends EventBus<?>> T ensureBus(
+        Class<T> busType,
+        Class<E> eventType,
+        Function<Class<?>, T> computeFn
+    ) {
         val got = busCache.computeIfAbsent(eventType, computeFn);
         if (!busType.isInstance(got)) {
             throw new IllegalArgumentException(String.format(
