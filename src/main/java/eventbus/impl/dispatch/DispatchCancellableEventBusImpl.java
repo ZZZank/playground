@@ -41,11 +41,6 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
     }
 
     @Override
-    public EventListenerToken<E> addListener(K key, Predicate<E> listener) {
-        return addListener(key, (byte) 0, listener);
-    }
-
-    @Override
     public boolean post(E event, K key) {
         if (super.post(event)) {
             return true;

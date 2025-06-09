@@ -10,6 +10,9 @@ import eventbus.impl.dispatch.DispatchCancellableEventBusImpl;
 import eventbus.impl.dispatch.DispatchEventBusImpl;
 import lombok.val;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -18,9 +21,9 @@ import java.util.function.Function;
  * @author ZZZank
  */
 public class EventBusGroupImpl implements EventBusGroup {
-    private final Map<Class<?>, Object> busCache = new ConcurrentHashMap<>();
+    private final Map<Class<?>, EventBus<?>> busCache = new ConcurrentHashMap<>();
 
-    private <E, T> T ensureBus(Class<T> busType, Class<E> eventType, Function<Class<?>, T> computeFn) {
+    private <E, T extends EventBus<?>> T ensureBus(Class<T> busType, Class<E> eventType, Function<Class<?>, T> computeFn) {
         val got = busCache.computeIfAbsent(eventType, computeFn);
         if (!busType.isInstance(got)) {
             throw new IllegalArgumentException(String.format(
@@ -66,5 +69,10 @@ public class EventBusGroupImpl implements EventBusGroup {
             eventType,
             ignored -> new DispatchCancellableEventBusImpl<>(eventType, dispatchKey, backend)
         );
+    }
+
+    @Override
+    public Collection<? extends EventBus<?>> viewBuses() {
+        return Collections.unmodifiableCollection(this.busCache.values());
     }
 }

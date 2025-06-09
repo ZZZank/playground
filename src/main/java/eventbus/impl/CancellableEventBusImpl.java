@@ -1,7 +1,9 @@
 package eventbus.impl;
 
 import eventbus.CancellableEventBus;
+import eventbus.EventListenerToken;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -13,6 +15,16 @@ public class CancellableEventBusImpl<E>
 
     public CancellableEventBusImpl(Class<E> eventType) {
         super(eventType);
+    }
+
+    @Override
+    public EventListenerToken<E> addListener(byte priority, Consumer<E> listener) {
+        return addListener(priority, new NeverCancelListener<>(listener));
+    }
+
+    @Override
+    public EventListenerToken<E> addListener(Consumer<E> listener) {
+        return addListener((byte) 0, listener);
     }
 
     @Override
@@ -43,6 +55,15 @@ public class CancellableEventBusImpl<E>
                     }
                     return false;
                 };
+        }
+    }
+
+    private record NeverCancelListener<E>(Consumer<E> consumer) implements Predicate<E> {
+
+        @Override
+        public boolean test(E e) {
+            consumer.accept(e);
+            return false;
         }
     }
 }

@@ -14,7 +14,9 @@ public interface DispatchCancellableEventBus<E, K> extends CancellableEventBus<E
 
     EventListenerToken<E> addListener(K key, byte priority, Predicate<E> listener);
 
-    EventListenerToken<E> addListener(K key, Predicate<E> listener);
+    default EventListenerToken<E> addListener(K key, Predicate<E> listener) {
+        return addListener(key, (byte) 0, listener);
+    }
 
     boolean post(E event, K key);
 

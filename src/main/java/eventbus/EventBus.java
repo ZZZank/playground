@@ -16,5 +16,6 @@ public interface EventBus<E> {
     /// @see CancellableEventBus#post(Object)
     boolean post(E event);
 
+    /// @return `true` if there's a registered listener matching this token, `false` otherwise
     boolean unregister(EventListenerToken<E> token);
 }
