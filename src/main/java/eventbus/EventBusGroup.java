@@ -3,7 +3,7 @@ package eventbus;
 import eventbus.dispatch.DispatchCancellableEventBus;
 import eventbus.dispatch.DispatchEventBus;
 import eventbus.dispatch.EventDispatchKey;
-import eventbus.impl.dispatch.DispatchEventBusImpl;
+import eventbus.impl.EventBusGroupImpl;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,7 +11,13 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author ZZZank
  */
-public interface BusGroup {
+public interface EventBusGroup {
+    EventBusGroup DEFAULT = create();
+
+    static EventBusGroup create() {
+        return new EventBusGroupImpl();
+    }
+
     <E> EventBus<E> ofBus(Class<E> eventType);
 
     <E> CancellableEventBus<E> ofCancellableBus(Class<E> eventType);
