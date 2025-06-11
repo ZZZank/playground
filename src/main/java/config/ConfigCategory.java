@@ -1,8 +1,8 @@
 package config;
 
 import config.prop.ConfigProperties;
-import config.struct.ConfigCategoryImpl;
-import config.struct.ConfigEntryBuilder;
+import config.impl.struct.ConfigCategoryImpl;
+import config.impl.struct.ConfigEntryBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

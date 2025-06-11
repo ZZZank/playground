@@ -1,4 +1,4 @@
-package config.report;
+package config.impl.report;
 
 import config.AccessResult;
 import utils.Asser;

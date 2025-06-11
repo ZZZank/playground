@@ -1,4 +1,4 @@
-package config.struct;
+package config.impl.struct;
 
 import config.ConfigCategory;
 import config.ConfigEntry;

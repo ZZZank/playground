@@ -1,7 +1,7 @@
 package config;
 
-import config.report.AccessResultImpl;
-import config.report.BuiltinResults;
+import config.impl.report.AccessResultImpl;
+import config.impl.report.BuiltinResults;
 import utils.Asser;
 
 import java.util.Optional;

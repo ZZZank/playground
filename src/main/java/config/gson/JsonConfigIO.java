@@ -1,10 +1,11 @@
-package config.io;
+package config.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import config.ConfigIO;
+import config.impl.io.SerdeHolder;
 import utils.Asser;
 import utils.Cast;
 import utils.JsonUtils;

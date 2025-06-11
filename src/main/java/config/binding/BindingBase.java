@@ -4,12 +4,12 @@ import config.ConfigBinding;
 import org.jetbrains.annotations.NotNull;
 import utils.Asser;
 import config.AccessResult;
-import config.report.BuiltinResults;
+import config.impl.report.BuiltinResults;
 
 /**
  * @author ZZZank
  */
-public abstract class BindingBase<T> implements ConfigBinding<T> {
+abstract class BindingBase<T> implements ConfigBinding<T> {
 
     @NotNull
     protected final T defaultValue;

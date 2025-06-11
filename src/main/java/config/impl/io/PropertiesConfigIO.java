@@ -1,4 +1,4 @@
-package config.io;
+package config.impl.io;
 
 import config.ConfigIO;
 import org.jetbrains.annotations.NotNull;

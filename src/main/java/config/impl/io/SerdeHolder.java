@@ -1,4 +1,4 @@
-package config.io;
+package config.impl.io;
 
 import utils.Asser;
 import config.prop.ConfigProperty;

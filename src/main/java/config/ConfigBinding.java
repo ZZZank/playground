@@ -1,7 +1,7 @@
 package config;
 
 import org.jetbrains.annotations.NotNull;
-import config.report.BuiltinResults;
+import config.impl.report.BuiltinResults;
 
 /**
  * @author ZZZank
