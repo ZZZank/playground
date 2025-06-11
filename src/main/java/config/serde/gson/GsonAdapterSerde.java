@@ -3,8 +3,8 @@ package config.serde.gson;
 import com.google.gson.JsonElement;
 import com.google.gson.TypeAdapter;
 import org.jetbrains.annotations.NotNull;
-import asser.Asser;
-import zzzank.probejs.utils.config.serde.ConfigSerde;
+import utils.Asser;
+import config.serde.ConfigSerde;
 
 /**
  * @author ZZZank

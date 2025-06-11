@@ -2,7 +2,7 @@ package config.prop;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import asser.Asser;
+import utils.Asser;
 
 import java.util.*;
 

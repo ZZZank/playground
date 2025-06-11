@@ -1,6 +1,6 @@
 package config.report;
 
-import asser.Asser;
+import utils.Asser;
 import config.report.AccessResult.ResultType;
 
 import java.util.function.Supplier;

@@ -2,9 +2,9 @@ package config.struct;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import asser.Asser;
-import zzzank.probejs.utils.config.binding.ConfigBinding;
-import zzzank.probejs.utils.config.prop.ConfigProperties;
+import utils.Asser;
+import config.binding.ConfigBinding;
+import config.prop.ConfigProperties;
 
 /**
  * @author ZZZank

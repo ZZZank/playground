@@ -1,4 +1,4 @@
-package asser;
+package utils;
 
 import org.jetbrains.annotations.NotNull;
 

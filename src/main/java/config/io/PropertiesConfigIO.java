@@ -1,12 +1,12 @@
 package config.io;
 
 import org.jetbrains.annotations.NotNull;
-import zzzank.probejs.utils.Cast;
-import zzzank.probejs.utils.CollectUtils;
-import zzzank.probejs.utils.config.prop.ConfigProperty;
-import zzzank.probejs.utils.config.serde.ConfigSerde;
-import zzzank.probejs.utils.config.struct.ConfigEntry;
-import zzzank.probejs.utils.config.struct.ConfigRoot;
+import utils.Cast;
+import utils.CollectUtils;
+import config.prop.ConfigProperty;
+import config.serde.ConfigSerde;
+import config.struct.ConfigEntry;
+import config.struct.ConfigRoot;
 
 import java.io.IOException;
 import java.io.Reader;

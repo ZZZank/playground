@@ -2,9 +2,9 @@ package config.struct;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import asser.Asser;
-import zzzank.probejs.utils.config.io.ConfigIO;
-import zzzank.probejs.utils.config.prop.ConfigProperties;
+import utils.Asser;
+import config.io.ConfigIO;
+import config.prop.ConfigProperties;
 
 import java.nio.file.Path;
 import java.util.LinkedHashMap;

@@ -1,8 +1,8 @@
 package config.struct;
 
-import zzzank.probejs.utils.config.prop.ConfigProperties;
-import zzzank.probejs.utils.config.report.BuiltinResults;
-import zzzank.probejs.utils.config.report.AccessResult;
+import config.prop.ConfigProperties;
+import config.report.BuiltinResults;
+import config.report.AccessResult;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

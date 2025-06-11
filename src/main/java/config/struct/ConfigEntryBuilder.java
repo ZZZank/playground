@@ -1,24 +1,25 @@
 package config.struct;
 
 import org.jetbrains.annotations.NotNull;
-import asser.Asser;
-import zzzank.probejs.utils.Cast;
-import zzzank.probejs.utils.NameUtils;
-import zzzank.probejs.utils.config.binding.*;
-import zzzank.probejs.utils.config.prop.ConfigProperties;
-import zzzank.probejs.utils.config.prop.ConfigProperty;
+import utils.Asser;
+import utils.Cast;
+import config.binding.*;
+import config.prop.ConfigProperties;
+import config.prop.ConfigProperty;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 /**
  * @author ZZZank
  */
 public class ConfigEntryBuilder<T> {
 
+    private static final Pattern MATCH_LINE_BREAK = Pattern.compile("\n");
     public final ConfigCategory parent;
     public final String name;
     public ConfigBinding<T> binding;
@@ -100,7 +101,7 @@ public class ConfigEntryBuilder<T> {
         this.properties.merge(
             ConfigProperty.COMMENTS,
             Arrays.stream(comments)
-                .map(NameUtils.MATCH_LINE_BREAK::split)
+                .map(MATCH_LINE_BREAK::split)
                 .flatMap(Arrays::stream)
                 .toList(),
             (a, b) -> {

@@ -1,10 +1,10 @@
 package config.struct;
 
 import org.jetbrains.annotations.NotNull;
-import asser.Asser;
-import zzzank.probejs.utils.Cast;
-import zzzank.probejs.utils.config.binding.ReadOnlyBinding;
-import zzzank.probejs.utils.config.prop.ConfigProperties;
+import utils.Asser;
+import utils.Cast;
+import config.binding.ReadOnlyBinding;
+import config.prop.ConfigProperties;
 
 import java.util.Collections;
 import java.util.Map;

@@ -1,10 +1,10 @@
 package config.struct;
 
-import zzzank.probejs.utils.config.binding.ConfigBinding;
-import zzzank.probejs.utils.config.binding.ReadOnlyBinding;
-import zzzank.probejs.utils.config.prop.ConfigProperties;
-import zzzank.probejs.utils.config.prop.ConfigProperty;
-import zzzank.probejs.utils.config.report.AccessResult;
+import config.binding.ConfigBinding;
+import config.binding.ReadOnlyBinding;
+import config.prop.ConfigProperties;
+import config.prop.ConfigProperty;
+import config.report.AccessResult;
 
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
 package config.struct;
 
 import zzzank.probejs.ProbeJS;
-import zzzank.probejs.utils.config.io.ConfigIO;
+import config.io.ConfigIO;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

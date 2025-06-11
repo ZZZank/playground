@@ -3,7 +3,7 @@ package config.serde;
 import java.lang.reflect.*;
 
 /**
- * @param <I> intermediate object type, used by {@link zzzank.probejs.utils.config.serde.ConfigSerde}
+ * @param <I> intermediate object type, used by {@link config.serde.ConfigSerde}
  * @author ZZZank
  */
 public interface ConfigSerdeFactory<I> {

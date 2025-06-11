@@ -1,10 +1,10 @@
 package config.io;
 
-import asser.Asser;
-import zzzank.probejs.utils.config.prop.ConfigProperty;
-import zzzank.probejs.utils.config.serde.ConfigSerde;
-import zzzank.probejs.utils.config.serde.ConfigSerdeFactory;
-import zzzank.probejs.utils.config.struct.ConfigEntry;
+import utils.Asser;
+import config.prop.ConfigProperty;
+import config.serde.ConfigSerde;
+import config.serde.ConfigSerdeFactory;
+import config.struct.ConfigEntry;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

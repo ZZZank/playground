@@ -1,7 +1,7 @@
 package config.binding;
 
 import org.jetbrains.annotations.NotNull;
-import asser.Asser;
+import utils.Asser;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;

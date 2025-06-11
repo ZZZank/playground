@@ -1,7 +1,7 @@
 package config.binding;
 
 import org.jetbrains.annotations.NotNull;
-import asser.Asser;
+import utils.Asser;
 import config.report.AccessResult;
 import config.struct.ConfigRoot;
 

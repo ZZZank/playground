@@ -1,6 +1,6 @@
 package config.io;
 
-import zzzank.probejs.utils.config.struct.ConfigRoot;
+import config.struct.ConfigRoot;
 
 import java.io.IOException;
 import java.io.Reader;
