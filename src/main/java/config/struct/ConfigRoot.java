@@ -1,8 +1,8 @@
 package config.struct;
 
-import zzzank.probejs.ProbeJS;
 import config.io.ConfigIO;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -19,26 +19,18 @@ public interface ConfigRoot extends ConfigCategory {
         return filePath() == null;
     }
 
-    default void save() {
+    default void save() throws IOException {
         if (inMemoryOnly()) {
             return;
         }
-        try {
-            io().save(this, filePath());
-        } catch (Exception e) {
-            ProbeJS.LOGGER.error("Error happened when writing configs to file", e);
-        }
+        io().save(this, filePath());
     }
 
-    default void read() {
+    default void read() throws IOException {
         if (inMemoryOnly() || !Files.exists(filePath())) {
             return;
         }
-        try {
-            io().read(this, filePath());
-        } catch (Exception e) {
-            ProbeJS.LOGGER.error("Error happened when reading configs from file", e);
-        }
+        io().read(this, filePath());
     }
 
     @Override
