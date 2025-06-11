@@ -3,7 +3,6 @@ package config.impl.io;
 import config.ConfigIO;
 import org.jetbrains.annotations.NotNull;
 import utils.Cast;
-import utils.CollectUtils;
 import config.prop.ConfigProperty;
 import config.ConfigSerde;
 import config.ConfigEntry;
@@ -61,7 +60,7 @@ public class PropertiesConfigIO extends SerdeHolder<String> implements ConfigIO 
     public void save(ConfigRoot config, Writer writer) throws IOException {
         var properties = new Properties();
         var comments = new ArrayList<String>();
-        for (var entry : CollectUtils.iterate(walkEntries(config))) {
+        for (var entry : (Iterable<ConfigEntry<?>>) walkEntries(config)::iterator) {
             var serde = getSerde(entry);
 
             var defaultValue = entry.getDefault();

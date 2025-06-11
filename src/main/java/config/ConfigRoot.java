@@ -25,6 +25,7 @@ public interface ConfigRoot extends ConfigCategory {
 
     ConfigIO io();
 
+    @Nullable
     Path filePath();
 
     default boolean inMemoryOnly() {
@@ -32,17 +33,19 @@ public interface ConfigRoot extends ConfigCategory {
     }
 
     default void save() throws IOException {
-        if (inMemoryOnly()) {
+        var path = filePath();
+        if (path == null) {
             return;
         }
-        io().save(this, filePath());
+        io().save(this, path);
     }
 
     default void read() throws IOException {
-        if (inMemoryOnly() || !Files.exists(filePath())) {
+        var path = filePath();
+        if (path == null || !Files.exists(path)) {
             return;
         }
-        io().read(this, filePath());
+        io().read(this, path);
     }
 
     @Override
