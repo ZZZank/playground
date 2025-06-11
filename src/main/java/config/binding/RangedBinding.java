@@ -2,7 +2,7 @@ package config.binding;
 
 import org.jetbrains.annotations.NotNull;
 import utils.Asser;
-import config.report.AccessResult;
+import config.AccessResult;
 import config.report.BuiltinResults;
 
 /**

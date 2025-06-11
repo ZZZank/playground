@@ -1,7 +1,7 @@
 package config.binding;
 
 import org.jetbrains.annotations.NotNull;
-import config.report.AccessResult;
+import config.AccessResult;
 import config.report.BuiltinResults;
 
 /**

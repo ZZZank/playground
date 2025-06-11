@@ -1,9 +1,11 @@
 package config.struct;
 
+import config.ConfigEntry;
+import config.ConfigRoot;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import utils.Asser;
-import config.io.ConfigIO;
+import config.ConfigIO;
 import config.prop.ConfigProperties;
 
 import java.nio.file.Path;

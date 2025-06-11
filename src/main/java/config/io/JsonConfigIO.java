@@ -4,13 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import config.ConfigIO;
 import utils.Asser;
 import utils.Cast;
 import utils.JsonUtils;
 import config.prop.ConfigProperty;
-import config.serde.ConfigSerde;
-import config.struct.ConfigCategory;
-import config.struct.ConfigRoot;
+import config.ConfigSerde;
+import config.ConfigCategory;
+import config.ConfigRoot;
 
 import java.io.Reader;
 import java.io.Writer;

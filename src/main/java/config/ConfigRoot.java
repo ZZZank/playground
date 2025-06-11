@@ -1,6 +1,4 @@
-package config.struct;
-
-import config.io.ConfigIO;
+package config;
 
 import java.io.IOException;
 import java.nio.file.Files;

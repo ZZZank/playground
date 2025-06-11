@@ -1,5 +1,8 @@
 package config.struct;
 
+import config.ConfigBinding;
+import config.ConfigCategory;
+import config.ConfigEntry;
 import org.jetbrains.annotations.NotNull;
 import utils.Asser;
 import utils.Cast;
@@ -25,7 +28,7 @@ public class ConfigEntryBuilder<T> {
     public ConfigBinding<T> binding;
     public ConfigProperties properties = new ConfigProperties();
 
-    ConfigEntryBuilder(ConfigCategory parent, String name) {
+    public ConfigEntryBuilder(ConfigCategory parent, String name) {
         this.parent = Asser.tNotNull(parent, "parent category");
         this.name = Asser.tNotNull(name, "name");
     }

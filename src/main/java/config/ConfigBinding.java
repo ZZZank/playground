@@ -1,8 +1,7 @@
-package config.binding;
+package config;
 
 import org.jetbrains.annotations.NotNull;
 import config.report.BuiltinResults;
-import config.report.AccessResult;
 
 /**
  * @author ZZZank

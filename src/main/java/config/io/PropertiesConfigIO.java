@@ -1,12 +1,13 @@
 package config.io;
 
+import config.ConfigIO;
 import org.jetbrains.annotations.NotNull;
 import utils.Cast;
 import utils.CollectUtils;
 import config.prop.ConfigProperty;
-import config.serde.ConfigSerde;
-import config.struct.ConfigEntry;
-import config.struct.ConfigRoot;
+import config.ConfigSerde;
+import config.ConfigEntry;
+import config.ConfigRoot;
 
 import java.io.IOException;
 import java.io.Reader;

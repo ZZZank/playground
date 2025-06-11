@@ -1,10 +1,8 @@
-package config.struct;
+package config;
 
-import config.binding.ConfigBinding;
 import config.binding.ReadOnlyBinding;
 import config.prop.ConfigProperties;
 import config.prop.ConfigProperty;
-import config.report.AccessResult;
 
 import java.util.Optional;
 

@@ -1,9 +1,10 @@
 package config.binding;
 
+import config.ConfigBinding;
 import org.jetbrains.annotations.NotNull;
 import utils.Asser;
-import config.report.AccessResult;
-import config.struct.ConfigRoot;
+import config.AccessResult;
+import config.ConfigRoot;
 
 import java.io.IOException;
 

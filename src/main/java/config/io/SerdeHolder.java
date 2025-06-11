@@ -2,9 +2,9 @@ package config.io;
 
 import utils.Asser;
 import config.prop.ConfigProperty;
-import config.serde.ConfigSerde;
-import config.serde.ConfigSerdeFactory;
-import config.struct.ConfigEntry;
+import config.ConfigSerde;
+import config.ConfigSerdeFactory;
+import config.ConfigEntry;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

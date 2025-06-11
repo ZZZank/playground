@@ -1,5 +1,6 @@
 package config.report;
 
+import config.AccessResult;
 import utils.Asser;
 
 import java.util.function.Supplier;
@@ -9,9 +10,9 @@ import java.util.function.Supplier;
  */
 public class BuiltinResults {
 
-    static final Supplier<String> SUPPLY_NULL = () -> null;
+    public static final Supplier<String> SUPPLY_NULL = () -> null;
 
-    static final AccessResult<?> NONE = AccessResult.good(null);
+    public static final AccessResult<?> NONE = AccessResult.good(null);
 
     public static <T> AccessResult<T> readOnlyError(String name) {
         return AccessResult.error(() -> String.format("config entry '%s' is readonly", name));

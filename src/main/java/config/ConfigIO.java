@@ -1,6 +1,4 @@
-package config.io;
-
-import config.struct.ConfigRoot;
+package config;
 
 import java.io.IOException;
 import java.io.Reader;

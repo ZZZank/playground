@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.TypeAdapter;
 import org.jetbrains.annotations.NotNull;
 import utils.Asser;
-import config.serde.ConfigSerde;
+import config.ConfigSerde;
 
 /**
  * @author ZZZank

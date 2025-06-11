@@ -3,7 +3,7 @@ package config.serde.gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import org.jetbrains.annotations.NotNull;
-import config.serde.ConfigSerde;
+import config.ConfigSerde;
 
 import java.util.regex.Pattern;
 

@@ -1,5 +1,7 @@
 package config.struct;
 
+import config.ConfigCategory;
+import config.ConfigEntry;
 import org.jetbrains.annotations.NotNull;
 import utils.Asser;
 import utils.Cast;
@@ -13,7 +15,7 @@ import java.util.function.Supplier;
 /**
  * @author ZZZank
  */
-class ConfigCategoryImpl extends ConfigEntryImpl<Map<String, ConfigEntry<?>>> implements ConfigCategory {
+public class ConfigCategoryImpl extends ConfigEntryImpl<Map<String, ConfigEntry<?>>> implements ConfigCategory {
 
     private final Map<String, ConfigEntry<?>> structure;
 

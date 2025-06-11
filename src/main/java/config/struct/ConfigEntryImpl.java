@@ -1,9 +1,11 @@
 package config.struct;
 
+import config.ConfigCategory;
+import config.ConfigEntry;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import utils.Asser;
-import config.binding.ConfigBinding;
+import config.ConfigBinding;
 import config.prop.ConfigProperties;
 
 /**

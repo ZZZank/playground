@@ -1,9 +1,9 @@
-package config.serde;
+package config;
 
 import java.lang.reflect.*;
 
 /**
- * @param <I> intermediate object type, used by {@link config.serde.ConfigSerde}
+ * @param <I> intermediate object type, used by {@link ConfigSerde}
  * @author ZZZank
  */
 public interface ConfigSerdeFactory<I> {
