@@ -1,7 +1,6 @@
 package config.struct;
 
 import config.prop.ConfigProperties;
-import config.report.BuiltinResults;
 import config.report.AccessResult;
 
 import java.util.LinkedHashMap;
@@ -30,7 +29,7 @@ public interface ConfigCategory extends ConfigEntry<Map<String, ConfigEntry<?>>>
 
     @Override
     default AccessResult<Map<String, ConfigEntry<?>>> set(Map<String, ConfigEntry<?>> value) {
-        return BuiltinResults.error("internal container of ConfigCategory should not be mutated externally");
+        return AccessResult.error(() -> "internal container of ConfigCategory should not be mutated externally");
     }
 
     @Override

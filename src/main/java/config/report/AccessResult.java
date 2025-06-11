@@ -14,6 +14,22 @@ public interface AccessResult<T> {
         return (AccessResult<T>) BuiltinResults.NONE;
     }
 
+    static <T> AccessResult<T> good(T value) {
+        return new AccessResultImpl<>(value, ResultType.GOOD, BuiltinResults.SUPPLY_NULL);
+    }
+
+    static <T> AccessResult<T> info(T value, Supplier<String> message) {
+        return new AccessResultImpl<>(value, ResultType.INFO, message);
+    }
+
+    static <T> AccessResult<T> warning(T value, Supplier<String> message) {
+        return new AccessResultImpl<>(value, ResultType.WARNING, message);
+    }
+
+    static <T> AccessResult<T> error(Supplier<String> message) {
+        return new AccessResultImpl<>(null, ResultType.ERROR, message);
+    }
+
     T value();
 
     ResultType type();

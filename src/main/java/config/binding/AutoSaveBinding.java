@@ -1,6 +1,5 @@
 package config.binding;
 
-import config.report.BuiltinResults;
 import org.jetbrains.annotations.NotNull;
 import utils.Asser;
 import config.report.AccessResult;
@@ -46,7 +45,7 @@ public class AutoSaveBinding<T> implements ConfigBinding<T> {
         try {
             root.save();
         } catch (IOException e) {
-            return BuiltinResults.error(() -> "Unable to save config file: " + e);
+            return AccessResult.error(() -> "Unable to save config file: " + e);
         }
         return result;
     }
