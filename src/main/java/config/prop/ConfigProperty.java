@@ -12,8 +12,7 @@ import java.util.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConfigProperty<T> {
 
-    private static final Map<String, ConfigProperty<?>> NAMED = new HashMap<>();
-    private static final List<ConfigProperty<?>> INDEXED = new ArrayList<>();
+    private static final Map<String, ConfigProperty<?>> NAMED = new LinkedHashMap<>();
 
     public static final ConfigProperty<List<String>> COMMENTS = register("comments", Collections.emptyList());
     public static final ConfigProperty<Collection<String>> ENUMS = register("enums", Collections.emptyList());
@@ -24,10 +23,14 @@ public final class ConfigProperty<T> {
         if (NAMED.containsKey(name)) {
             throw new IllegalArgumentException("config property with name '" + name + "' already registered");
         }
-        var prop = new ConfigProperty<>(name, INDEXED.size(), defaultValue);
+        var prop = new ConfigProperty<>(name, NAMED.size(), defaultValue);
         NAMED.put(name, prop);
-        INDEXED.add(prop);
         return prop;
+    }
+
+    public static ConfigProperty<?> get(String name) {
+        Asser.tNotNull(name, "name");
+        return NAMED.get(name);
     }
 
     private final String name;
