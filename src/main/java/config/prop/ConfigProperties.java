@@ -1,63 +1,54 @@
 package config.prop;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import org.jetbrains.annotations.NotNull;
-
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 /**
  * @author ZZZank
  */
 public class ConfigProperties {
-    public static final int SIZE_THRESHOLD = 5;
-
-    @NotNull
-    private Int2ObjectMap<Object> internal;
+    private final Map<ConfigProperty<?>, Object> internal;
 
     public ConfigProperties() {
-        internal = new Int2ObjectArrayMap<>();
+        this(ConcurrentHashMap::new);
+    }
+
+    public ConfigProperties(Supplier<Map<ConfigProperty<?>, Object>> backend) {
+        internal = backend.get();
     }
 
     public <T> void put(ConfigProperty<T> property, T value) {
         Objects.requireNonNull(property);
         Objects.requireNonNull(value);
-        synchronized (this) {
-            if (internal.size() == SIZE_THRESHOLD && internal instanceof Int2ObjectArrayMap) {
-                internal = new Int2ObjectOpenHashMap<>(internal);
-            }
-            internal.put(property.index(), value);
-        }
+        internal.put(property, value);
     }
 
     public <T> T merge(ConfigProperty<T> property, T value, BiFunction<? super T, ? super T, ? extends T> merger) {
-        synchronized (this) {
-            return (T) internal.merge(property.index(), value, (BiFunction) merger);
-        }
+        return (T) internal.merge(property, value, (BiFunction) merger);
+    }
+
+    public <T> T getNullable(ConfigProperty<T> property) {
+        return (T) internal.get(property);
     }
 
     public <T> T getOrDefault(ConfigProperty<T> property) {
-        synchronized (this) {
-            return (T) internal.getOrDefault(property.index(), property.defaultValue());
-        }
+        var got = getNullable(property);
+        return got == null ? property.defaultValue() : got;
     }
 
     public <T> Optional<T> get(ConfigProperty<T> property) {
-        return Optional.ofNullable(getOrDefault(property));
+        return Optional.ofNullable(getNullable(property));
     }
 
     public <T> boolean has(ConfigProperty<T> property) {
-        synchronized (this) {
-            return internal.containsKey(property.index());
-        }
+        return internal.containsKey(property);
     }
 
     public <T> T remove(ConfigProperty<T> property) {
-        synchronized (this) {
-            return (T) internal.remove(property.index());
-        }
+        return (T) internal.remove(property);
     }
 }

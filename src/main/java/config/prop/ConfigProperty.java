@@ -47,6 +47,11 @@ public final class ConfigProperty<T> {
     }
 
     @Override
+    public int hashCode() {
+        return index;
+    }
+
+    @Override
     public String toString() {
         return "ConfigProperty{" + name + "}";
     }
