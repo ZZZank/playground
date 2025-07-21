@@ -2,13 +2,19 @@ package eventbus.dispatch;
 
 import eventbus.EventBus;
 import eventbus.EventListenerToken;
+import eventbus.impl.dispatch.DispatchEventBusImpl;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 /**
  * @author ZZZank
  */
 public interface DispatchEventBus<E, K> extends EventBus<E> {
+
+    static <E, K> DispatchEventBus<E, K> create(Class<E> eventType, EventDispatchKey<E, K> dispatchKey) {
+        return new DispatchEventBusImpl<>(eventType, dispatchKey, new ConcurrentHashMap<>());
+    }
 
     EventDispatchKey<E, K> dispatchKey();
 

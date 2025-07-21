@@ -1,11 +1,18 @@
 package eventbus;
 
+import eventbus.impl.EventBusImpl;
+
 import java.util.function.Consumer;
 
 /**
  * @author ZZZank
  */
 public interface EventBus<E> {
+
+    static <E> EventBus<E> create(Class<E> eventType) {
+        return new EventBusImpl<>(eventType);
+    }
+
     Class<E> eventType();
 
     EventListenerToken<E> addListener(Consumer<E> listener);
