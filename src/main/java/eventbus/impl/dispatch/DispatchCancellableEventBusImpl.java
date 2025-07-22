@@ -17,6 +17,7 @@ import java.util.function.Predicate;
  */
 public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusImpl<E>
     implements DispatchCancellableEventBus<E, K> {
+
     private final EventDispatchKey<E, K> dispatchKey;
     private final Map<K, CancellableEventBus<E>> dispatched;
 
@@ -31,17 +32,17 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
     }
 
     @Override
-    public EventDispatchKey<E, K> dispatchKey() {
+    public final EventDispatchKey<E, K> dispatchKey() {
         return dispatchKey;
     }
 
     @Override
-    public EventListenerToken<E> addListener(K key, byte priority, Consumer<E> listener) {
+    public final EventListenerToken<E> addListener(K key, byte priority, Consumer<E> listener) {
         return addListener(key, priority, new NeverCancelListener<>(listener));
     }
 
     @Override
-    public EventListenerToken<E> addListener(K key, Consumer<E> listener) {
+    public final EventListenerToken<E> addListener(K key, Consumer<E> listener) {
         return addListener(key, (byte) 0, listener);
     }
 
