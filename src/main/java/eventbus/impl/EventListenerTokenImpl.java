@@ -26,6 +26,6 @@ public record EventListenerTokenImpl<EVENT, LISTENER>(
 
     @Override
     public int compareTo(EventListenerTokenImpl<EVENT, LISTENER> o) {
-        return priority - o.priority;
+        return Byte.compare(this.priority, o.priority);
     }
 }

@@ -5,9 +5,11 @@ import eventbus.EventListenerToken;
 import eventbus.dispatch.DispatchCancellableEventBus;
 import eventbus.dispatch.EventDispatchKey;
 import eventbus.impl.CancellableEventBusImpl;
+import eventbus.impl.NeverCancelListener;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
@@ -34,14 +36,24 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
     }
 
     @Override
-    public EventListenerToken<E> addListener(K key, byte priority, Predicate<E> listener) {
+    public EventListenerToken<E> addListener(K key, byte priority, Consumer<E> listener) {
+        return addListener(key, priority, new NeverCancelListener<>(listener));
+    }
+
+    @Override
+    public EventListenerToken<E> addListener(K key, Consumer<E> listener) {
+        return addListener(key, (byte) 0, listener);
+    }
+
+    @Override
+    public final EventListenerToken<E> addListener(K key, byte priority, Predicate<E> listener) {
         return this.dispatched
             .computeIfAbsent(key, k -> new CancellableEventBusImpl<>(this.eventType()))
             .addListener(priority, listener);
     }
 
     @Override
-    public boolean post(E event, K key) {
+    public final boolean post(E event, K key) {
         if (super.post(event)) {
             return true;
         }
