@@ -1,26 +1,26 @@
 package eventbus.dispatch;
 
-import eventbus.impl.dispatch.EventDispatchKeyImpl;
+import eventbus.impl.dispatch.DispatchKeyImpl;
 
 import java.util.function.Function;
 
 /**
  * @author ZZZank
  */
-public interface EventDispatchKey<E, K> {
-    static <E, K> EventDispatchKey<E, K> create(
+public interface DispatchKey<E, K> {
+    static <E, K> DispatchKey<E, K> create(
         Class<K> keyType,
         Function<E, K> toKey,
         Function<Object, K> inputTransformer
     ) {
-        return new EventDispatchKeyImpl<>(keyType, toKey, inputTransformer);
+        return new DispatchKeyImpl<>(keyType, toKey, inputTransformer);
     }
 
-    static <E, K> EventDispatchKey<E, K> create(Class<K> keyType, Function<E, K> toKey) {
+    static <E, K> DispatchKey<E, K> create(Class<K> keyType, Function<E, K> toKey) {
         return create(keyType, toKey, o -> keyType.isInstance(o) ? (K) o : null);
     }
 
-    static <E, K> EventDispatchKey<E, K> create(Class<K> keyType) {
+    static <E, K> DispatchKey<E, K> create(Class<K> keyType) {
         return create(keyType, (ignored) -> null);
     }
 
