@@ -64,7 +64,6 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
             return true;
         }
 
-        key = this.dispatchKey.transformInput(key);
         if (key != null) {
             var bus = this.dispatched.get(key);
             return bus != null && bus.post(event);

@@ -24,6 +24,6 @@ public interface DispatchCancellableEventBus<E, K> extends CancellableEventBus<E
 
     @Override
     default boolean post(E event) {
-        return post(event, this.dispatchKey().toKey(event));
+        return post(event, this.dispatchKey().eventToKey(event));
     }
 }

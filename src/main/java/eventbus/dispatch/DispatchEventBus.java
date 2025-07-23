@@ -26,6 +26,6 @@ public interface DispatchEventBus<E, K> extends EventBus<E> {
 
     @Override
     default boolean post(E event) {
-        return post(event, this.dispatchKey().toKey(event));
+        return post(event, this.dispatchKey().eventToKey(event));
     }
 }
