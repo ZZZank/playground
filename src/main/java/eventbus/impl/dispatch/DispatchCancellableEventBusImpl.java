@@ -54,6 +54,11 @@ public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusIm
     }
 
     @Override
+    public final boolean post(E event) {
+        return DispatchCancellableEventBus.super.post(event);
+    }
+
+    @Override
     public final boolean post(E event, K key) {
         if (super.post(event)) {
             return true;

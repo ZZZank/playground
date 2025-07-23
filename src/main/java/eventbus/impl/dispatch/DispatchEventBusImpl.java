@@ -45,6 +45,11 @@ public class DispatchEventBusImpl<E, K> extends EventBusImpl<E> implements Dispa
     }
 
     @Override
+    public boolean post(E event) {
+        return DispatchEventBus.super.post(event);
+    }
+
+    @Override
     public final boolean post(E event, K key) {
         super.post(event);
 

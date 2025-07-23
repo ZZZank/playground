@@ -28,7 +28,7 @@ public class CancellableEventBusImpl<E>
     }
 
     @Override
-    public final boolean post(E event) {
+    public boolean post(E event) {
         return getBuilt(CancellableEventBusImpl::compile).test(event);
     }
 
