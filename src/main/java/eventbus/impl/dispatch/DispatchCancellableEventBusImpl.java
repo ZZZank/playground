@@ -1,73 +1,55 @@
 package eventbus.impl.dispatch;
 
 import eventbus.CancellableEventBus;
+import eventbus.CommonPriority;
 import eventbus.EventListenerToken;
 import eventbus.dispatch.DispatchCancellableEventBus;
 import eventbus.dispatch.DispatchKey;
-import eventbus.impl.CancellableEventBusImpl;
-import eventbus.impl.NeverCancelListener;
 
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
  * @author ZZZank
  */
-public class DispatchCancellableEventBusImpl<E, K> extends CancellableEventBusImpl<E>
+public final class DispatchCancellableEventBusImpl<E, K> extends DispatchEventBusBase<E, K, CancellableEventBus<E>>
     implements DispatchCancellableEventBus<E, K> {
-
-    private final DispatchKey<E, K> dispatchKey;
-    private final Map<K, CancellableEventBus<E>> dispatched;
 
     public DispatchCancellableEventBusImpl(
         Class<E> eventType,
         DispatchKey<E, K> dispatchKey,
         Map<K, CancellableEventBus<E>> dispatched
     ) {
-        super(eventType);
-        this.dispatchKey = Objects.requireNonNull(dispatchKey);
-        this.dispatched = Objects.requireNonNull(dispatched);
+        super(eventType, dispatchKey, dispatched);
     }
 
     @Override
-    public final DispatchKey<E, K> dispatchKey() {
-        return dispatchKey;
+    protected CancellableEventBus<E> createBus(Class<E> eventType) {
+        return CancellableEventBus.create(eventType);
     }
 
     @Override
-    public final EventListenerToken<E> addListener(K key, byte priority, Consumer<E> listener) {
-        return addListener(key, priority, new NeverCancelListener<>(listener));
-    }
-
-    @Override
-    public final EventListenerToken<E> addListener(K key, Consumer<E> listener) {
-        return addListener(key, (byte) 0, listener);
-    }
-
-    @Override
-    public final EventListenerToken<E> addListener(K key, byte priority, Predicate<E> listener) {
+    public EventListenerToken<E> addListener(K key, byte priority, Predicate<E> listener) {
+        if (key == null) {
+            return mainBus.addListener(priority, listener);
+        }
         return this.dispatched
-            .computeIfAbsent(key, k -> new CancellableEventBusImpl<>(this.eventType()))
+            .computeIfAbsent(key, ignored -> this.createBus(this.eventType()))
             .addListener(priority, listener);
     }
 
     @Override
-    public final boolean post(E event) {
-        return DispatchCancellableEventBus.super.post(event);
+    public EventListenerToken<E> addListener(K key, Predicate<E> listener) {
+        return addListener(key, CommonPriority.NORMAL, listener);
     }
 
     @Override
-    public final boolean post(E event, K key) {
-        if (super.post(event)) {
-            return true;
-        }
+    public EventListenerToken<E> addListener(byte priority, Predicate<E> listener) {
+        return addListener(null, priority, listener);
+    }
 
-        if (key != null) {
-            var bus = this.dispatched.get(key);
-            return bus != null && bus.post(event);
-        }
-        return false;
+    @Override
+    public EventListenerToken<E> addListener(Predicate<E> listener) {
+        return addListener(null, CommonPriority.NORMAL, listener);
     }
 }

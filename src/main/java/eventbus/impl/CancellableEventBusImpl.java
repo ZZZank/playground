@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * @author ZZZank
  */
-public class CancellableEventBusImpl<E>
+public final class CancellableEventBusImpl<E>
     extends EventBusBase<E, Predicate<E>> implements CancellableEventBus<E> {
 
     public CancellableEventBusImpl(Class<E> eventType) {
@@ -18,12 +18,12 @@ public class CancellableEventBusImpl<E>
     }
 
     @Override
-    public final EventListenerToken<E> addListener(byte priority, Consumer<E> listener) {
+    public EventListenerToken<E> addListener(byte priority, Consumer<E> listener) {
         return addListener(priority, new NeverCancelListener<>(listener));
     }
 
     @Override
-    public final EventListenerToken<E> addListener(Consumer<E> listener) {
+    public EventListenerToken<E> addListener(Consumer<E> listener) {
         return addListener((byte) 0, listener);
     }
 

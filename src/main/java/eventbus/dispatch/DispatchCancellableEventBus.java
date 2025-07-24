@@ -18,14 +18,7 @@ public interface DispatchCancellableEventBus<E, K> extends CancellableEventBus<E
 
     EventListenerToken<E> addListener(K key, byte priority, Predicate<E> listener);
 
-    default EventListenerToken<E> addListener(K key, Predicate<E> listener) {
-        return addListener(key, (byte) 0, listener);
-    }
-
-    @Override
-    default boolean post(E event) {
-        return post(event, this.dispatchKey().eventToKey(event));
-    }
+    EventListenerToken<E> addListener(K key, Predicate<E> listener);
 
     @Override
     default <E_ extends E, K_ extends K> DispatchCancellableEventBus<E_, K_> castDispatch() {
