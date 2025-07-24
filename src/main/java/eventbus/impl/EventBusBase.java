@@ -37,7 +37,7 @@ public abstract class EventBusBase<EVENT, LISTENER> {
     }
 
     public final boolean unregister(EventListenerToken<EVENT> token) {
-        var changed = this.tokens.remove(token);
+        var changed = token instanceof EventListenerTokenImpl<?, ?> && this.tokens.remove(token);
         if (changed) {
             built = null;
         }
