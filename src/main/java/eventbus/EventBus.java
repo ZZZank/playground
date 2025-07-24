@@ -25,4 +25,8 @@ public interface EventBus<E> {
 
     /// @return `true` if there's a registered listener matching this token, `false` otherwise
     boolean unregister(EventListenerToken<E> token);
+
+    default <E_ extends E> EventBus<E_> cast() {
+        return (EventBus<E_>) this;
+    }
 }

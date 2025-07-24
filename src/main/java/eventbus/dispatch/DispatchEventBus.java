@@ -28,4 +28,8 @@ public interface DispatchEventBus<E, K> extends EventBus<E> {
     default boolean post(E event) {
         return post(event, this.dispatchKey().eventToKey(event));
     }
+
+    default <E_ extends E, K_ extends K> DispatchEventBus<E_, K_> castDispatch() {
+        return (DispatchEventBus<E_, K_>) this;
+    }
 }
