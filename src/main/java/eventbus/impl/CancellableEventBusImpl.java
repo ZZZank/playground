@@ -1,6 +1,7 @@
 package eventbus.impl;
 
 import eventbus.CancellableEventBus;
+import eventbus.CommonPriority;
 import eventbus.EventListenerToken;
 
 import java.util.function.Consumer;
@@ -24,7 +25,7 @@ public final class CancellableEventBusImpl<E>
 
     @Override
     public EventListenerToken<E> addListener(Consumer<E> listener) {
-        return addListener((byte) 0, listener);
+        return addListener(CommonPriority.NORMAL, new NeverCancelListener<>(listener));
     }
 
     @Override

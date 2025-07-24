@@ -1,5 +1,6 @@
 package eventbus.impl;
 
+import eventbus.CommonPriority;
 import eventbus.EventListenerToken;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public abstract class EventBusBase<EVENT, LISTENER> {
     }
 
     public final EventListenerToken<EVENT> addListener(LISTENER listener) {
-        return addListener((byte) 0, listener);
+        return addListener(CommonPriority.NORMAL, listener);
     }
 
     public final EventListenerToken<EVENT> addListener(byte priority, LISTENER listener) {

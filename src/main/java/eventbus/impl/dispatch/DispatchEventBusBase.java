@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 /**
  * @author ZZZank
  */
-public abstract class DispatchEventBusBase<EVENT, KEY, BUS extends EventBus<EVENT>> {
+abstract class DispatchEventBusBase<EVENT, KEY, BUS extends EventBus<EVENT>> {
     private final DispatchKey<EVENT, KEY> dispatchKey;
     protected final BUS mainBus;
     protected final Map<KEY, BUS> dispatched;
