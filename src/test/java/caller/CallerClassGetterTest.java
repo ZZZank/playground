@@ -1,6 +1,5 @@
-package eventbus;
+package caller;
 
-import caller.CallerClassGetter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
