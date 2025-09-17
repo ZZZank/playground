@@ -1,6 +1,5 @@
-package test.config;
+package config;
 
-import config.ConfigRoot;
 import config.annotation.AnnotatedConfigFactory;
 import config.annotation.Config;
 

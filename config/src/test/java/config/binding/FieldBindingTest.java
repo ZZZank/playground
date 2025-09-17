@@ -1,6 +1,5 @@
-package test.config.binding;
+package config.binding;
 
-import config.binding.FieldBinding;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
