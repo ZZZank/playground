@@ -26,11 +26,6 @@ public class AutoSaveBinding<T> implements ConfigBinding<T> {
     }
 
     @Override
-    public @NotNull Class<T> getDefaultType() {
-        return inner.getDefaultType();
-    }
-
-    @Override
     public @NotNull T get() {
         return inner.get();
     }

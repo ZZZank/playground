@@ -24,7 +24,7 @@ public class FieldBinding<T> extends BindingBase<T> {
     public FieldBinding(MethodHandles.Lookup lookup, @NotNull Field field, Object instance, @NotNull String name)
         throws IllegalAccessException {
         // implicit field accessibility check via `field.get(instance)`
-        super((T) field.get(instance), (Class<T>) field.getType(), name);
+        super((T) field.get(instance), name);
         this.instance = instance;
         this.getter = lookup.unreflectGetter(field);
         this.setter = lookup.unreflectSetter(field);

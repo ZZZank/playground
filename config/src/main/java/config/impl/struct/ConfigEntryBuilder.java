@@ -10,6 +10,7 @@ import config.binding.*;
 import config.prop.ConfigProperties;
 import config.prop.ConfigProperty;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -27,6 +28,7 @@ public class ConfigEntryBuilder<T> {
     public final String name;
     public ConfigBinding<T> binding;
     public ConfigProperties properties = new ConfigProperties();
+    public Type defaultType = null;
 
     public ConfigEntryBuilder(ConfigCategory parent, String name) {
         this.parent = Asser.tNotNull(parent, "parent category");
@@ -34,8 +36,6 @@ public class ConfigEntryBuilder<T> {
     }
 
     public <T_> ConfigEntryBuilder<T_> bind(ConfigBinding<T_> binding) {
-        var type = binding.getDefaultType();
-        Asser.t(type.isInstance(binding.getDefault()), "config default value must match expected type");
         var casted = Cast.<ConfigEntryBuilder<T_>>to(this);
         casted.binding = Asser.tNotNull(binding, "config binding");
         return casted;
@@ -48,23 +48,15 @@ public class ConfigEntryBuilder<T> {
 
     public <T_> ConfigEntryBuilder<T_> bind(@NotNull Supplier<@NotNull T_> getter, @NotNull Consumer<T_> setter) {
         var defaultValue = getter.get();
-        return bind(new DynamicBinding<>(defaultValue, extractType(defaultValue), name, getter, setter));
+        return bind(new DynamicBinding<>(defaultValue, name, getter, setter));
     }
 
     public <T_> ConfigEntryBuilder<T_> bindDefault(@NotNull T_ defaultValue) {
-        return bindDefault(defaultValue, extractType(defaultValue));
-    }
-
-    public <T_> ConfigEntryBuilder<T_> bindDefault(@NotNull T_ defaultValue, @NotNull Class<T_> defaultType) {
-        return bind(new DefaultBinding<>(defaultValue, defaultType, name));
+        return bind(new DefaultBinding<>(defaultValue, name));
     }
 
     public <T_> ConfigEntryBuilder<T_> bindReadOnly(@NotNull T_ defaultValue) {
-        return bindReadOnly(defaultValue, extractType(defaultValue));
-    }
-
-    public <T_> ConfigEntryBuilder<T_> bindReadOnly(@NotNull T_ defaultValue, @NotNull Class<T_> defaultType) {
-        return bind(new ReadOnlyBinding<>(defaultValue, defaultType, name));
+        return bind(new ReadOnlyBinding<>(defaultValue, name));
     }
 
     public <T_ extends Comparable<T_>> ConfigEntryBuilder<T_> bindRanged(
@@ -72,23 +64,22 @@ public class ConfigEntryBuilder<T> {
         @NotNull T_ min,
         @NotNull T_ max
     ) {
-        return bindRanged(defaultValue, min, max, extractType(defaultValue));
+        return bind(new RangedBinding<>(defaultValue, name, min, max));
     }
 
-    public <T_ extends Comparable<T_>> ConfigEntryBuilder<T_> bindRanged(
-        @NotNull T_ defaultValue,
-        @NotNull T_ min,
-        @NotNull T_ max,
-        @NotNull Class<T_> defaultType
-    ) {
-        return bind(new RangedBinding<>(defaultValue, defaultType, name, min, max));
+    public ConfigEntryBuilder<T> makeAutoSave() {
+        return bind(new AutoSaveBinding<>(this.binding, this.parent.getRoot()));
     }
 
-    private static <T> Class<T> extractType(T value) {
-        if (value instanceof Enum<?> e) {
-            return (Class<T>) e.getDeclaringClass();
-        }
-        return (Class<T>) value.getClass();
+    public ConfigEntryBuilder<T> setDefaultType(Type type) {
+        this.defaultType = type;
+        return this;
+    }
+
+    public ConfigEntryBuilder<T> setDefaultTypeFromBinding() {
+        var value = this.binding.getDefault();
+        var type = value instanceof Enum<?> e ? e.getDeclaringClass() : value.getClass();
+        return setDefaultType(type);
     }
 
     public <T_> ConfigEntryBuilder<T> setProperty(ConfigProperty<T_> property, @NotNull T_ value) {
@@ -116,11 +107,6 @@ public class ConfigEntryBuilder<T> {
     }
 
     public ConfigEntry<T> build() {
-        return this.parent.register(new ConfigEntryImpl<>(name, binding, properties, this.parent));
-    }
-
-    public ConfigEntry<T> buildAutoSave() {
-        this.binding = new AutoSaveBinding<>(binding, parent.getRoot());
-        return build();
+        return this.parent.register(new ConfigEntryImpl<>(name, binding, properties, this.parent, this.defaultType));
     }
 }

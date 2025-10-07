@@ -48,7 +48,7 @@ public abstract class SerdeHolder<I> {
                     property
                 )));
         }
-        var type = entry.binding().getDefaultType();
+        var type = entry.defaultType();
         var created = factories.stream()
             .map(f -> f.getSerde(type))
             .filter(Objects::nonNull)
@@ -66,7 +66,7 @@ public abstract class SerdeHolder<I> {
             throw new IllegalStateException(String.format(
                 "no serde available for config entry '%s' with type '%s'",
                 entry.path(),
-                entry.binding().getDefaultType()
+                entry.defaultType()
             ));
         }
         return got;

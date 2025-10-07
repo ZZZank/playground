@@ -4,6 +4,7 @@ import config.binding.ReadOnlyBinding;
 import config.prop.ConfigProperties;
 import config.prop.ConfigProperty;
 
+import java.lang.reflect.Type;
 import java.util.Optional;
 
 /**
@@ -25,6 +26,10 @@ public interface ConfigEntry<T> {
         return binding().get();
     }
 
+    default AccessResult<T> set(T value) {
+        return binding().set(value);
+    }
+
     default T getDefault() {
         return binding().getDefault();
     }
@@ -37,11 +42,9 @@ public interface ConfigEntry<T> {
         return binding() instanceof ReadOnlyBinding<?>;
     }
 
-    ConfigBinding<T> binding();
+    Type defaultType();
 
-    default AccessResult<T> set(T value) {
-        return binding().set(value);
-    }
+    ConfigBinding<T> binding();
 
     ConfigProperties properties();
 

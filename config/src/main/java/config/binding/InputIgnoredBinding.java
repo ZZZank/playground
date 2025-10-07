@@ -11,7 +11,7 @@ public class InputIgnoredBinding<T> extends DefaultBinding<T> {
         @NotNull Class<T> defaultType,
         @NotNull String name
     ) {
-        super(defaultValue, defaultType, name);
+        super(defaultValue, name);
     }
 
     @Override

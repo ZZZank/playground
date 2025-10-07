@@ -14,24 +14,16 @@ abstract class BindingBase<T> implements ConfigBinding<T> {
     @NotNull
     protected final T defaultValue;
     @NotNull
-    protected final Class<T> defaultType;
-    @NotNull
     protected final String name;
 
-    protected BindingBase(@NotNull T defaultValue, @NotNull Class<T> defaultType, @NotNull String name) {
+    protected BindingBase(@NotNull T defaultValue, @NotNull String name) {
         this.defaultValue = Asser.tNotNull(defaultValue, "defaultValue");
-        this.defaultType = Asser.tNotNull(defaultType, "defaultType");
         this.name = Asser.tNotNull(name, "name");
     }
 
     @Override
     public @NotNull T getDefault() {
         return defaultValue;
-    }
-
-    @Override
-    public @NotNull Class<T> getDefaultType() {
-        return defaultType;
     }
 
     @Override

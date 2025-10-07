@@ -25,7 +25,13 @@ public class ConfigCategoryImpl extends ConfigEntryImpl<Map<String, ConfigEntry<
         ConfigProperties properties,
         ConfigCategory parent
     ) {
-        super(name, new CategoryBinding(mapStructure.get(), Cast.to(Map.class), name), properties, parent);
+        super(
+            name,
+            new CategoryBinding(mapStructure.get(), Cast.to(Map.class), name),
+            properties,
+            parent,
+            Map.class
+        );
         structure = ((CategoryBinding) this.binding()).mutable;
     }
 
@@ -52,7 +58,7 @@ public class ConfigCategoryImpl extends ConfigEntryImpl<Map<String, ConfigEntry<
             @NotNull Class<Map<String, ConfigEntry<?>>> defaultType,
             @NotNull String name
         ) {
-            super(Collections.unmodifiableMap(defaultValue), defaultType, name);
+            super(Collections.unmodifiableMap(defaultValue), name);
             mutable = defaultValue;
         }
     }
