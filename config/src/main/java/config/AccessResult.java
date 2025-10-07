@@ -2,6 +2,7 @@ package config;
 
 import config.impl.report.AccessResultImpl;
 import config.impl.report.BuiltinResults;
+import config.impl.report.GoodAccessResult;
 import utils.Asser;
 
 import java.util.Optional;
@@ -17,7 +18,7 @@ public interface AccessResult<T> {
     }
 
     static <T> AccessResult<T> good(T value) {
-        return new AccessResultImpl<>(value, ResultType.GOOD, BuiltinResults.SUPPLY_NULL);
+        return new GoodAccessResult<>(value);
     }
 
     static <T> AccessResult<T> info(T value, Supplier<String> message) {
