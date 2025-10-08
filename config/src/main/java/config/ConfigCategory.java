@@ -4,6 +4,7 @@ import config.prop.ConfigProperties;
 import config.impl.struct.ConfigCategoryImpl;
 import config.impl.struct.ConfigEntryBuilder;
 
+import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -28,10 +29,15 @@ public interface ConfigCategory extends ConfigEntry<Map<String, ConfigEntry<?>>>
         return entry;
     }
 
+    @Deprecated
     @Override
     default AccessResult<Map<String, ConfigEntry<?>>> set(Map<String, ConfigEntry<?>> value) {
         return AccessResult.error(() -> "internal container of ConfigCategory should not be mutated externally");
     }
+
+    @Deprecated
+    @Override
+    Type defaultType();
 
     @Override
     default boolean isCategory() {

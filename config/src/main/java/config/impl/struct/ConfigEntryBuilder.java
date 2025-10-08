@@ -26,9 +26,9 @@ public class ConfigEntryBuilder<T> {
     private static final Pattern MATCH_LINE_BREAK = Pattern.compile("\n");
     public final ConfigCategory parent;
     public final String name;
-    public ConfigBinding<T> binding;
-    public ConfigProperties properties = new ConfigProperties();
-    public Type defaultType = null;
+    private ConfigBinding<T> binding;
+    private final ConfigProperties properties = new ConfigProperties();
+    private Type defaultType = null;
 
     public ConfigEntryBuilder(ConfigCategory parent, String name) {
         this.parent = Asser.tNotNull(parent, "parent category");
