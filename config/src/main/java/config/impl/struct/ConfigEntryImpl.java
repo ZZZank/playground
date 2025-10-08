@@ -21,7 +21,7 @@ class ConfigEntryImpl<T> implements ConfigEntry<T> {
     private final ConfigBinding<T> binding;
     private final ConfigProperties properties;
     private final ConfigCategory parent;
-    Type defaultType;
+    private Type defaultType;
 
     public ConfigEntryImpl(
         String name,
@@ -34,7 +34,7 @@ class ConfigEntryImpl<T> implements ConfigEntry<T> {
         this.binding = Asser.tNotNull(binding, "binding");
         this.properties = Asser.tNotNull(properties, "properties");
         this.parent = parent;
-        this.defaultType = defaultType;
+        setDefaultType(defaultType);
 
         if (!this.isRoot()) {
             Asser.t(!name.isEmpty(), "non-root config entry should have not-empty name");
@@ -47,15 +47,19 @@ class ConfigEntryImpl<T> implements ConfigEntry<T> {
                 ConfigCategory.PATH_SPLITTER_CHAR
             )
         );
+    }
 
-        var type = ConfigzUtil.getRawType(this.defaultType());
-        Asser.t(
-            type.isInstance(binding.getDefault()),
-            String.format(
-                "config default value '%s' not matching expected type '%s'",
-                defaultType(),
-                binding.getDefault()
-            )
-        );
+    public void setDefaultType(Type type) {
+        if (type != null) {
+            this.defaultType = type;
+            Asser.t(
+                ConfigzUtil.getRawType(type).isInstance(binding.getDefault()),
+                String.format(
+                    "config default value '%s' not an instance of expected type '%s'",
+                    type,
+                    binding.getDefault()
+                )
+            );
+        }
     }
 }

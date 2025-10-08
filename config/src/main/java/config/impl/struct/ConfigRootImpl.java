@@ -8,6 +8,8 @@ import utils.Asser;
 import config.ConfigIO;
 import config.prop.ConfigProperties;
 
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -35,5 +37,30 @@ public class ConfigRootImpl extends ConfigCategoryImpl implements ConfigRoot {
         super("", provider, properties, null);
         this.io = Asser.tNotNull(io, "config io");
         this.filePath = path;
+    }
+
+    @Override
+    public void fillEntryType(Class<?> declaringClass) {
+        for (var field : declaringClass.getDeclaredFields()) {
+            var modifiers = field.getModifiers();
+            if (
+                Modifier.isPublic(modifiers)
+                && Modifier.isStatic(modifiers)
+                && Modifier.isFinal(modifiers)
+                && ConfigEntry.class.isAssignableFrom(field.getType())
+                && field.getGenericType() instanceof ParameterizedType parameterized
+            ) {
+                // public static final ConfigEntry<XXX> someField
+                var param = parameterized.getActualTypeArguments()[0];
+                try {
+                    var o = (ConfigEntryImpl<?>) field.get(null);
+                    if (o.getRoot() == this) {
+                        o.setDefaultType(param);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Unable to access config entry from field: " + field.getName(), e);
+                }
+            }
+        }
     }
 }

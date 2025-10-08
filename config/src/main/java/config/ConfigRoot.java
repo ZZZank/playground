@@ -72,4 +72,6 @@ public interface ConfigRoot extends ConfigCategory {
     default String path() {
         return "";
     }
+
+    void fillEntryType(Class<?> declaringClass);
 }
