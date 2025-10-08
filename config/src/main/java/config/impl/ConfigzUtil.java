@@ -7,6 +7,32 @@ import java.lang.reflect.*;
  */
 public class ConfigzUtil {
 
+    public static boolean notEmpty(CharSequence charSequence) {
+        return !charSequence.isEmpty();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Class<T> toBoxedType(Class<T> type) {
+        if (type.isPrimitive()) {
+            if (type == boolean.class) {
+                return (Class<T>) Boolean.class;
+            } else if (type == int.class) {
+                return (Class<T>) Integer.class;
+            } else if (type == byte.class) {
+                return (Class<T>) Byte.class;
+            } else if (type == short.class) {
+                return (Class<T>) Short.class;
+            } else if (type == long.class) {
+                return (Class<T>) Long.class;
+            } else if (type == float.class) {
+                return (Class<T>) Float.class;
+            } else if (type == double.class) {
+                return (Class<T>) Double.class;
+            }
+        }
+        return type;
+    }
+
     public static Class<?> getRawType(Type type) {
         if (type instanceof Class<?>) {
             // type is a normal class.

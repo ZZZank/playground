@@ -47,9 +47,15 @@ class ConfigEntryImpl<T> implements ConfigEntry<T> {
                 ConfigCategory.PATH_SPLITTER_CHAR
             )
         );
+
+        var type = ConfigzUtil.getRawType(this.defaultType());
         Asser.t(
-            ConfigzUtil.getRawType(this.defaultType()).isInstance(binding.getDefault()),
-            "config default value must match expected type"
+            type.isInstance(binding.getDefault()),
+            String.format(
+                "config default value '%s' not matching expected type '%s'",
+                defaultType(),
+                binding.getDefault()
+            )
         );
     }
 }
