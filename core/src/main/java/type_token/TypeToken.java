@@ -32,7 +32,12 @@ public abstract class TypeToken<T> {
         if (!clazz.isAnonymousClass()) {
             throw new IllegalStateException("Type auto extraction can only be applied to an anonymous class");
         }
-        return clazz.getGenericSuperclass();
+        var fullType = clazz.getGenericSuperclass();
+        if (!(fullType instanceof ParameterizedType parameterized)) {
+            throw new IllegalStateException(
+                "Type auto extraction can only be applied to generic implementation of TypeToken");
+        }
+        return parameterized.getActualTypeArguments()[0];
     }
 
     public Type unwrap() {
