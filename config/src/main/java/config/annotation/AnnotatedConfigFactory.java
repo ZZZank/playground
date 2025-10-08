@@ -5,6 +5,7 @@ import config.ConfigIO;
 import config.ConfigRoot;
 import config.binding.FieldBinding;
 import config.impl.ConfigzUtil;
+import lazy.Lazy;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Modifier;
@@ -21,7 +22,7 @@ import java.util.function.Supplier;
  */
 public class AnnotatedConfigFactory {
     public static Supplier<ConfigRoot> create(Class<?> target, ConfigIO io, Path saveTo) {
-        return new AnnotatedConfigFactory(target).buildSupplier(io, saveTo);
+        return Lazy.of(new AnnotatedConfigFactory(target).buildSupplier(io, saveTo));
     }
 
     private final Class<?> target;
