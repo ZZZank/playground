@@ -106,6 +106,10 @@ public class ConfigEntryBuilder<T> {
         return this;
     }
 
+    public <T_> ConfigEntry<T_> bindDefaultAndBuild(T_ defaultValue) {
+        return bindDefault(defaultValue).build();
+    }
+
     public ConfigEntry<T> build() {
         return this.parent.register(new ConfigEntryImpl<>(name, binding, properties, this.parent, this.defaultType));
     }

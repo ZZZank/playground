@@ -36,7 +36,7 @@ public class ConfigTreePrinter {
         this.category = Objects.requireNonNull(category);
         this.indent = Objects.requireNonNull(indent);
         this.currentIndentLevel = currentIndentLevel;
-        this.reader = reader == null ? ConfigEntry::name : reader;
+        this.reader = reader == null ? ConfigTreePrinter::readDefault : reader;
         this.formattedIndent = indent.repeat(currentIndentLevel);
     }
 
@@ -50,5 +50,15 @@ public class ConfigTreePrinter {
             }
         }
         return result;
+    }
+
+    private static String readDefault(ConfigEntry<?> entry) {
+        var builder = new StringBuilder();
+        if (entry.isCategory()) {
+            builder.append("[category, ").append(entry.asCategory().get().size()).append(" entries]");
+        }
+        builder.append(entry.name());
+        builder.append(": ").append(entry.getDefault());
+        return builder.toString();
     }
 }

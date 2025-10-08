@@ -1,5 +1,6 @@
-package config;
+package config.test_obj;
 
+import config.ConfigRoot;
 import config.annotation.AnnotatedConfigFactory;
 import config.annotation.Config;
 import config.impl.ConfigTreePrinter;
@@ -13,6 +14,7 @@ import java.util.regex.Pattern;
 /**
  * @author ZZZank
  */
+@SuppressWarnings("unused")
 @Config
 public class ExampleConfig {
 
@@ -31,8 +33,9 @@ public class ExampleConfig {
     public static int anInt = 42;
 
     public static class ExampleSub {
-
+        @Config.Entry(name = "someRandomBool")
         public static boolean aBoolean = true;
+        @Config.Entry(name = "someRandomStr", comments = "wow")
         public static String aString = "mmm";
         public static int anInt = 24;
     }

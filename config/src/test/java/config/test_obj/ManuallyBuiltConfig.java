@@ -17,7 +17,12 @@ public class ManuallyBuiltConfig {
         Path.of("run/%s.properties".formatted(ManuallyBuiltConfig.class.getName()))
     );
 
-    public static final ConfigEntry<Integer> MAX_INT = ROOT.define("max_int")
+    public static final ConfigEntry<int[]> INT_ARRAY = ROOT.define("int_array")
+        .bindDefault(new int[]{1,2,3,4,5})
+        .comment("array of primitive int")
+        .build();
+
+    public static final ConfigEntry<Integer> INTEGER = ROOT.define("max_int")
         .bindDefault(10)
         .comment("well well well")
         .build();
