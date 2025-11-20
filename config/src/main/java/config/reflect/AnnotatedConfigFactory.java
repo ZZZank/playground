@@ -1,4 +1,4 @@
-package config.annotation;
+package config.reflect;
 
 import config.ConfigCategory;
 import config.ConfigIO;

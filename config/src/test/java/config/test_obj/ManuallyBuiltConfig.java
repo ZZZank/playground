@@ -1,8 +1,10 @@
 package config.test_obj;
 
+import config.ConfigCategory;
 import config.ConfigEntry;
 import config.ConfigRoot;
 import config.impl.io.PropertiesConfigIO;
+import config.reflect.ConfigTypeAutoComplete;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -35,7 +37,14 @@ public class ManuallyBuiltConfig {
     public static final ConfigEntry<List<String>> LIST_STR = ROOT.define("list_str")
         .bindDefaultAndBuild(List.of());
 
+    public interface SubCategory {
+        ConfigCategory CATEGORY = ROOT.subCategory("subCat");
+
+        ConfigEntry<List<Integer>> INT_LIST = CATEGORY.define("int_list")
+            .bindDefaultAndBuild(List.of());
+    }
+
     static {
-        ROOT.fillEntryType(ManuallyBuiltConfig.class);
+        ConfigTypeAutoComplete.forEntriesIn(ManuallyBuiltConfig.class);
     }
 }

@@ -1,4 +1,4 @@
-package config.annotation;
+package config.reflect;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

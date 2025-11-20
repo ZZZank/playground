@@ -1,8 +1,8 @@
 package config.test_obj;
 
 import config.ConfigRoot;
-import config.annotation.AnnotatedConfigFactory;
-import config.annotation.Config;
+import config.reflect.AnnotatedConfigFactory;
+import config.reflect.Config;
 import config.impl.ConfigTreePrinter;
 import config.impl.io.PropertiesConfigIO;
 

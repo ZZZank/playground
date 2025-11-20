@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
  */
 @Getter
 @Accessors(fluent = true, makeFinal = true)
-class ConfigEntryImpl<T> implements ConfigEntry<T> {
+public class ConfigEntryImpl<T> implements ConfigEntry<T> {
     private final String name;
     private final ConfigBinding<T> binding;
     private final ConfigProperties properties;
