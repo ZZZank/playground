@@ -5,6 +5,7 @@ import config.impl.report.BuiltinResults;
 import config.impl.report.GoodAccessResult;
 import utils.Asser;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -31,6 +32,15 @@ public interface AccessResult<T> {
 
     static <T> AccessResult<T> error(Supplier<String> message) {
         return new AccessResultImpl<>(null, ResultType.ERROR, message);
+    }
+
+    static <T> AccessResult<T> error(Throwable throwable) {
+        Objects.requireNonNull(throwable);
+        return error(() -> {
+            var className = throwable.getClass().getSimpleName();
+            var message = throwable.getLocalizedMessage();
+            return message == null ? className : className + ": " + message;
+        });
     }
 
     T value();

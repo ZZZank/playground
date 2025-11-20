@@ -1,7 +1,6 @@
 package config.impl.report;
 
 import config.AccessResult;
-import utils.Asser;
 
 import java.util.function.Supplier;
 
@@ -30,10 +29,5 @@ public class BuiltinResults {
             min,
             max
         ));
-    }
-
-    public static <T> AccessResult<T> exception(Throwable throwable) {
-        Asser.tNotNull(throwable, "throwable");
-        return AccessResult.error(throwable::toString);
     }
 }

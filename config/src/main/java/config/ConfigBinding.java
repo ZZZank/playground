@@ -18,7 +18,7 @@ public interface ConfigBinding<T> {
         try {
             return AccessResult.good(get());
         } catch (Exception e) {
-            return BuiltinResults.exception(e);
+            return AccessResult.error(e);
         }
     }
 

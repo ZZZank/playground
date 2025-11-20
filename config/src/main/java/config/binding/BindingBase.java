@@ -36,7 +36,7 @@ abstract class BindingBase<T> implements ConfigBinding<T> {
             setImpl(value);
             return AccessResult.none();
         } catch (Exception e) {
-            return BuiltinResults.exception(e);
+            return AccessResult.error(e);
         }
     }
 
