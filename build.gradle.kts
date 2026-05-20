@@ -1,7 +1,7 @@
 plugins {
     id("java")
-    id("com.gradleup.shadow").version("8.3.6")
-    id("xyz.wagyourtail.jvmdowngrader").version("1.3.0")
+    id("com.gradleup.shadow").version("9.4.1").apply(false)
+    id("xyz.wagyourtail.jvmdowngrader").version("1.3.6").apply(false)
 }
 
 group = "org.example"
@@ -9,6 +9,8 @@ version = "1.0-SNAPSHOT"
 
 allprojects {
     apply {
+        plugin("com.gradleup.shadow")
+        plugin("xyz.wagyourtail.jvmdowngrader")
         plugin("java")
     }
 
@@ -36,12 +38,6 @@ allprojects {
     }
 }
 
-tasks.shadowJar {
-//    archiveClassifier = "dev-shadow"
-    relocate("org.mozilla.javascript", "org.example.shaded.rhino")
-    relocate("org.mozilla.classfile", "org.example.shaded.rhino.classfile")
-}
-
-tasks.assemble.configure {
-    dependsOn(tasks.shadeDowngradedApi)
-}
+//tasks.assemble.configure {
+//    dependsOn(tasks.shadeDowngradedApi)
+//}
